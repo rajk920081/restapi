@@ -1,0 +1,51 @@
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    body{
+        background:#eee;
+    }
+</style>
+<div class="container">
+    <h1 class="p-2">All Products</h1>
+    <div class="row" id="result"></div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+$.get( "http://127.0.0.1:8000/apis/posts/", function( data ) {
+debugger;
+    for (i=0; i<=data.length;i++){
+    $("#result").append(`
+    <div class="col-md-4">
+    <div class="card p-2">
+        <div><img src="${data[i].image}" width="100%"></div>
+        <h3>${data[i].title}</h3>
+        <h3>${data[i].category.name}</h3>
+
+    </div>
+    </div>
+
+    `);
+    }
+
+
+});
+});
+</script>
+
+<div class="container">
+<form method="post">
+    {% csrf_token %}
+    <textarea rows="10" class="form-control" name="code"  placeholder="Enter Your Here"></textarea>
+    <br>
+
+    <button type="submit" class="btn btn-warning">Run</button>
+</form>
+
+{% autoescape off %}
+    <div>{{dd}}</div>
+ {% endautoescape %}
+</div>
